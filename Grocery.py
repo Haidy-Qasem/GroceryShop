@@ -1,98 +1,80 @@
-print("                                  Welcome to ITI Grocery\n")
-x=int(input("Enter 1 for shopping process\n"))
-while x==1:
+import csv
+from csv import DictWriter
+import pandas as pd
+
+
+while True:
 	
-	import csv 		 
+	 		 
 	print("                                  Welcome to ITI Grocery\n")
-	print("For Customer mode press 1")
-	print("For Owner mode press 2")
-	print("To Exit press 0")
+	print("For Customer mode press 1\nFor Owner mode press 2\nTo Exit press 0")
 	n=input("Enter your mode\n")
-	if n=='0' :
+	if n== '0' :
 		x=0
 		print("                                End of Processs")
-	bill=0	
-	if n=='1': 
-		z=int(input("Please Enter 1 again for shopping process\n"))
-		while z==1:
-				with open ("product_file.csv")as file3:
-					for lines in file3:
-						product_list=lines.strip()
-						print(product_list)
+		break
+	elif n=='1': 
+		bill=0	
+		z=input("Please Enter 1 again for shopping process\n")
+		if z=='1':
+			final_data = pd.DataFrame({
+			'Product_Name':["Apple","Banana","Orange"],
+			' Product Price':["20","35","22"],
+			' Quantity':["50","30","20"]})
+			final_data.to_csv('file.csv')
+			print(final_data)
+			k=str(input("Enter Product name:\n"))
+			m=int(input("Choose no.of products:\n"))
+			s=int(input("Enter the previous Price\n"))
+			price=int(m*s)
+			bill+=price
 				
-				k=str(input("Enter Product name:\n"))
-				m=int(input("Choose no.of products:\n"))
-				s=int(input("Enter the previous Price\n"))
-				price=int(m*s)
-				bill+=price
-				
-				y=input("Do you want to continue?yes/no\n")	
-
-				
-				if y=='yes':
-					# while True:
-						k=str(input("Enter Product name:\n"))
-						m=int(input("Choose quantity of products:\n"))
-						s=int(input("Enter the previous Price:\n"))
-						bill=int(m*s)
-						y=input("Do you want to continue?yes/no\n")	
-						if y=='no':
-							print('''**********************Bill**********************\n''')
-							print("products:",k)
-							print("product price:",s)
-							print("product quantity:",m)
-							print("Bill:",bill)
-							print("\n")
-							print("                                End of Processs")
-							z=0
-				elif y=='no':
-					print('''**********************Bill**********************\n''')
-					print("products:",k)
-					print("product price:",s)
-					print("product quantity:",m)
-					print("Bill:",bill)
-					print("                                End of Processs")
-					z=0
-			
+			print("***********************************************************Bill***********************************************************\n")
+			print("products:",k)
+			print("product price:",s)
+			print("product quantity:",m)
+			print("Bill:",bill)
+			print("                                End of Processs")
+			y=input("Do you want to continue?yes/no\n")			
+			if y=='yes':
+				while True:
+					k=str(input("Enter Product name:\n"))
+					m=int(input("Choose quantity of products:\n"))
+					s=int(input("Enter the previous Price:\n"))
+					bill=int(m*s)
+					y=input("Do you want to continue?yes/no\n")	
+					if y=='no':
+						break
 		
-			
-	if n=='2':
+	elif n=='2' :
 		p=input("Enter the owner Password:\n") #pass=123
 		if p=='123':
-			print("Products& Price")
-			print("To show Products & Prices Press1")
-			print("To change cost Press2")	
-			print("To add new Products Press3")
-			x=input("Enter Owner Mode")
-			if x=='1':
-				with open ("csv_1.csv")as file3:
-					for lines in file3:
-						product_list=lines.strip()
-						print(product_list)
+			print("*****************************************************Products & Price*****************************************************")
+			while True:
+				print("To Show Products & Prices Press1\nTo Add new Products Press2")
+				x=input("Enter Owner Mode")
+				if x=='1':
+					final_data = pd.DataFrame({
+					'Product_Name':["Apple","Banana","Orange"],
+					' Product_Price':["20","35","22"],
+					' Quantity':["50","30","20"]})
+					final_data.to_csv('file.csv')
+					print(final_data)
 				
-			# if x=='2':
-				# file3=open("test.csv","r")
-				
-				# a=input("Enter the old Price:(Product:Old Price)")
-				# b=input("Enter the new Price:(Product:New Price)")
-				# file3.replace(a,b)
-			
-			if x=='3':
-				with open ("product_file.csv")as file3:
-					product_file=csv.reader(file3)
-					# for row in productfile:
-						# print(row)
-				
-					product_file=[]
-					word_1=str(input("Enter what you want to add:(Product:) "))
-					word_2=int(input("Enter what you want to add:(Price:) "))
-					word_3=int(input("Enter what you want to add:(Quantity:)")) 
-					h=[word_1,word_2,word_3]
-					product_file.append(h)
-					print(product_file)
-					
-						
-						
-				
+				if x=='2':
+					New_Data=input("Enter what you want to add:(Product:Price:Quantity)")
+					file3 = open('file.csv', 'w')
+					with open('file.csv', 'a') as f_object:
+						final_data = pd.DataFrame({
+						'Product_Name':["Apple","Banana","Orange"],
+						' Product_Price':["20","35","22"],
+						' Quantity':["50","30","20"]})
+						final_data.to_csv('file.csv')
+						f= csv.writer(object)
+						f.writerow(New_Data)
+						object.close()
+		
 		else:
-			print("End of Process")
+			print("Wrong Password\nPlease Re-Enter your Password")
+	else:
+		print("Wrong Choice")
